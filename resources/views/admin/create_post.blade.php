@@ -24,7 +24,7 @@
                 </div>
                     <div>
                         <div class="x_content">
-                        {{-- {{ Form::open(['method' => 'post','route'=>'admin.mem_add_generate_epin']) }} --}}
+                        {{ Form::open(['method' => 'post','route'=>'admin.add_post']) }}
                             <div class="well" style="overflow: auto">
                                 <div class="form-row mb-10">
                                     <div class="col-md-6 col-sm-12 col-xs-12 mb-3">

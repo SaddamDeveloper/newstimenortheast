@@ -22,5 +22,7 @@ Route::group(['middleware'=>'auth:admin','prefix'=>'admin','namespace'=>'Admin']
     Route::get('/dashboard', 'AdminDashboardController@index')->name('admin.dashboard');
 
     Route::get('/create/post', 'PostPagesController@createPost')->name('admin.create_post');
+    Route::post('/add/post', 'PostPagesController@addPost')->name('admin.add_post');
+
 });
 

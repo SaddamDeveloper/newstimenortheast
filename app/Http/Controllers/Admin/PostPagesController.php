@@ -10,4 +10,8 @@ class PostPagesController extends Controller
     public function createPost(){
         return view('admin.create_post');
     }
+
+    public function addPost(Request $request){
+        return $request;
+    }
 }
