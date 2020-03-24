@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+require_once  __DIR__."/frontend.php";
+
 Route::get('/', 'Web\MainController@index');
 
 Route::get('/admin/login', 'Admin\AdminLoginController@showAdminLoginForm')->name('admin.login');

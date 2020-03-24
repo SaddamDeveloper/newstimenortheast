@@ -1,4 +1,4 @@
 @include('web.include.header')
-    @yield('content')
+ @yield('content')
 @include('web.include.footer')
 @yield('script')

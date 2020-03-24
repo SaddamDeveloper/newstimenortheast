@@ -13,25 +13,25 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
 	<!--Favicon-->
-	<link rel="shortcut icon" href="{{asset('newstime/images/favicon.ico')}}" type="image/x-icon">
-	<link rel="icon" href="{{asset('newstime/images/favicon.ico')}}" type="image/x-icon">
+	<link rel="shortcut icon" href="{{asset('web/images/favicon.ico')}}" type="image/x-icon">
+	<link rel="icon" href="{{asset('web/images/favicon.ico')}}" type="image/x-icon">
 	
 	<!-- CSS ================================================== -->	
 	<!-- Bootstrap -->
-	<link rel="stylesheet" href="{{asset('newstime/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{asset('web/css/bootstrap.min.css')}}">
 	<!-- Template styles-->
-	<link rel="stylesheet" href="{{asset('newstime/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('web/css/style.css')}}">
 	<!-- Responsive styles-->
-	<link rel="stylesheet" href="{{asset('newstime/css/responsive.css')}}">
+	<link rel="stylesheet" href="{{asset('web/css/responsive.css')}}">
 	<!-- FontAwesome -->
-	<link rel="stylesheet" href="{{asset('newstime/css/font-awesome.min.css')}}">
+	<link rel="stylesheet" href="{{asset('web/css/font-awesome.min.css')}}">
 	<!-- Animation -->
-	<link rel="stylesheet" href="{{asset('newstime/css/animate.css')}}">
+	<link rel="stylesheet" href="{{asset('web/css/animate.css')}}">
 	<!-- Owl Carousel -->
-	<link rel="stylesheet" href="{{asset('newstime/css/owl.carousel.min.css')}}">
-	<link rel="stylesheet" href="{{asset('newstime/css/owl.theme.default.min.css')}}">
+	<link rel="stylesheet" href="{{asset('web/css/owl.carousel.min.css')}}">
+	<link rel="stylesheet" href="{{asset('web/css/owl.theme.default.min.css')}}">
 	<!-- Colorbox -->
-	<link rel="stylesheet" href="{{asset('newstime/css/colorbox.css')}}">
+	<link rel="stylesheet" href="{{asset('web/css/colorbox.css')}}">
 
 	<!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
@@ -45,31 +45,31 @@
 
 	<div class="body-inner">
 
-	   <div id="top-bar" class="top-bar">
-	      <div class="container">
-	         <div class="row">
-	            <div class="col-md-8">
-	               <div class="ts-date">
-	                  <i class="fa fa-calendar-check-o"></i>May 29, 2017
-	               </div>
-	               <ul class="unstyled top-nav">
-	                  <li><b>Showing in :</b></li>
-	                  <li><a href="#" class="showing">English</a></li>
-	                  <li><a href="#">Assamese</a></li>
-	               </ul>
-	            </div><!--/ Top bar left end -->
+	   	<div id="top-bar" class="top-bar">
+		    <div class="container">
+		        <div class="row">
+		            <div class="col-md-8">
+		               	<div class="ts-date">
+		                  	<i class="fa fa-calendar-check-o"></i>May 29, 2017
+		               	</div>
+		               <ul class="unstyled top-nav">
+		                  	<li><b>Showing in :</b></li>
+		                  	<li><a href="#" class="showing">English</a></li>
+		                  	<li><a href="#">Assamese</a></li>
+		               </ul>
+		            </div><!--/ Top bar left end -->
 
-	            <div class="col-md-4 top-social text-lg-right text-md-center">
-	                <ul class="social-icon">
-						<li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
-						<li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
-						<li><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
-						<li><a href="#" target="_blank"><i class="fa fa-youtube"></i></a></li>
-					</ul>
-	            </div><!--/ Top social col end -->
-	         </div><!--/ Content row end -->
-	      </div><!--/ Container end -->
-	   </div><!--/ Topbar end -->
+		            <div class="col-md-4 top-social text-lg-right text-md-center">
+		                <ul class="social-icon">
+							<li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fa fa-youtube"></i></a></li>
+						</ul>
+		            </div><!--/ Top social col end -->
+		        </div><!--/ Content row end -->
+		    </div><!--/ Container end -->
+	   	</div><!--/ Topbar end -->
 
 		<!-- Header start -->
 		<header id="header" class="header">
@@ -77,15 +77,15 @@
 				<div class="row">
 					<div class="col-lg-1 col-sm-2 col-xs-2">
 						<div class="logo">
-							 <a href="index.php">
-								<img src="{{asset('newstime/images/logos/logo.png')}}" alt="">
+							 <a href="">
+								<img src="{{asset('web/images/logos/logo.png')}}" alt="">
 							 </a>
 						</div>
 					</div><!-- logo col end -->
 
 					<div class="col-lg-11 col-sm-10 col-xs-10 header-right">
 						<div class="ad-banner float-right">
-							<a href="#"><img src="{{asset('newstime/images/banner-ads/ad-top-header.png')}}" class="img-fluid" alt=""></a>
+							<a href="#"><img src="{{asset('web/images/banner-ads/ad-top-header.png')}}" class="img-fluid" alt=""></a>
 						</div>
 					</div><!-- header right end -->
 				</div><!-- Row end -->
@@ -105,43 +105,43 @@
 							<div id="navbarSupportedContent" class="collapse navbar-collapse navbar-responsive-collapse">
 								<ul class="nav navbar-nav">
 									<li>
-										<a href="index.php">Home </a>
+										{{-- <a href="{{route('web.index')}}">Home </a> --}}
 									</li>
 
 									<li>
-										<a href="about.php">About</a>
+										<a href="{{route('web.about.about')}}">About</a>
 									</li>
 
 									<li class="dropdown">
 										<a class="dropdown-toggle" data-toggle="dropdown">News <i class="fa fa-angle-down"></i></a>
 										<ul class="dropdown-menu" role="menu">
 											<li>
-												<a href="news.php">India</a>
+												<a href="{{route('web.news.news-list')}}">India</a>
 											</li>
 											<li>
-												<a href="news.php">World</a>
+												<a href="{{route('web.news.news-list')}}">World</a>
 											</li>
 										</ul><!-- End dropdown -->
 									</li><!-- Features menu end -->
 
 									<li>
-										<a href="news.php">Guwahati</a>
+										<a href="{{route('web.news.news-list')}}">Guwahati</a>
 									</li>
 
 									<li>
-										<a href="news.php">Assam</a>
+										<a href="{{route('web.news.news-list')}}">Assam</a>
 									</li>
 
 									<li>
-										<a href="news.php">Northeast</a>
+										<a href="{{route('web.news.news-list')}}">Northeast</a>
 									</li>
 
 									<li>
-										<a href="news.php">Entertainment</a>
+										<a href="{{route('web.news.news-list')}}">Entertainment</a>
 									</li>
 
 									<li>
-										<a href="news.php">Sports</a>
+										<a href="{{route('web.news.news-list')}}">Sports</a>
 									</li>
 
 									<li>
@@ -149,7 +149,7 @@
 									</li><!-- Video menu end -->
 
 									<li>
-										<a href="livetv.php">Live Tv</a>
+										<a href="{{route('web.livetv.livetv')}}">Live Tv</a>
 									</li><!-- Video menu end -->
 								</ul><!--/ Nav ul end -->
 							</div><!--/ Collapse end -->
@@ -168,5 +168,4 @@
 
 				</div><!--/ Row end -->
 			</div><!--/ Container end -->
-
 		</div><!-- Menu wrapper end -->
