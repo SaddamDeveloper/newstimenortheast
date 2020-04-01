@@ -30,6 +30,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'author' => 'required'
+        ]);
         $post = $request->isMethod('put') ? Post::findOrFail($request->post_id) : new Post;
 
         $post->id = $request->input('post_id');

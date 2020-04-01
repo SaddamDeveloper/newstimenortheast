@@ -2,9 +2,7 @@
 
 //========= index =========//
 
-Route::get('/', function () {
-    return view('web.index');
-})->name('web.index');
+
 
 //========= News =========//
 
@@ -39,3 +37,21 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('web.contact.contact');
 })->name('web.contact.contact');
+
+
+Route::group(['namespace' => 'Web'], function(){
+	Route::get('/', 'MainController@slidePost')->name('web.index');
+
+	Route::group(['prefix' => 'english'], function(){
+		Route::get('/posts/{slug}/{id}', 'MainController@showPost')->name('web.viewPost');
+	});
+});
+
+
+Route::group(['namespace' => 'Assamese'], function(){
+	Route::get('/assamese', 'MainController@slidePost')->name('assamese.index');
+
+	Route::group(['prefix' => 'assamese'], function(){
+		Route::get('/posts/{slug}/{id}', 'MainController@showPost')->name('assamese.viewPost');
+	});
+});

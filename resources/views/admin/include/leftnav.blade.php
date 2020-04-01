@@ -31,7 +31,20 @@
             <li><a><i class="fa fa-edit"></i> News Post <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="{{route('admin.create_post')}}">Add Post</a></li>
-                {{-- <li><a href="{{route('admin.list_post')}}">List Posts</a></li> --}}
+                <li><a href="{{route('admin.eng_list_post')}}">English List Posts</a></li>
+                <li><a href="{{route('admin.ass_list_post')}}">Assamese List Posts</a></li>
+              </ul>
+            </li>
+            <li><a><i class="fa fa-list-alt"></i> Manage Category <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="{{route('admin.create_catgeory')}}">Add Category</a></li>
+                <li><a href="{{route('admin.list_category')}}">List Category</a></li>
+              </ul>
+            </li>
+            <li><a><i class="fa fa-user"></i> Homepage Manage <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="{{route('admin.slider_list')}}">Slider Post List</a></li>
+                <li><a href="{{route('admin.four_list')}}">Four Post List</a></li>
               </ul>
             </li>
           </ul>

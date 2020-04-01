@@ -20,48 +20,79 @@
                      @if (Session::has('error'))
                         <div class="alert alert-danger">{{ Session::get('error') }}</div>
                      @endif
-
                 </div>
                     <div>
                         <div class="x_content">
-                        {{ Form::open(['method' => 'post','route'=>'admin.add_post']) }}
+                        {{ Form::open(['method' => 'post','route'=>'admin.add_post', 'enctype'=>'multipart/form-data']) }}
                             <div class="well" style="overflow: auto">
                                 <div class="form-row mb-10">
-                                    <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
-                                        <label for="category">Title</label>
+                                    <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
+                                        <label for="title">Title</label>
                                         <input type="text" class="form-control" value="" name="title" placeholder="Enter Title">
+                                        @if($errors->has('title'))
+                                        <span class="invalid-feedback" role="alert" style="color:red">
+                                            <strong>{{ $errors->first('title') }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 mb-3">
-                                        <label for="category">Author</label>
+                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-3">
+                                        <label for="type">Type</label>
+                                        <select class="form-control" name="type" id="type">
+                                            <option selected="" disabled="" value="">Select Type</option>
+                                            <option value="1">English</option>
+                                            <option value="2">Assamese</option>
+                                        </select>
+                                        @if($errors->has('type'))
+                                        <span class="invalid-feedback" role="alert" style="color:red">
+                                            <strong>{{ $errors->first('type') }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12 mb-3">
+                                        <label for="author">Author</label>
                                         <input type="text" class="form-control" value="" name="author" placeholder="Author">
-                                    </div>                
+                                        @if($errors->has('author'))
+                                        <span class="invalid-feedback" role="alert" style="color:red">
+                                            <strong>{{ $errors->first('author') }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-row mb-10">
                                     <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                         <label for="category">Category</label>
                                         <select class="form-control" name="category" id="category">
-                                            <option selected="" disabled="">Select Category</option>
-                                            <option value="3">উত্তৰ পূৰ্বাঞ্চলৰ কেন্দ্ৰবিন্দু</option>
-                                            <option value="5">অন্বেষণ</option>
+                                            <option selected="" disabled="" value="">Select Category</option>
+                                            
                                         </select>
+                                        @if($errors->has('category'))
+                                        <span class="invalid-feedback" role="alert" style="color:red">
+                                            <strong>{{ $errors->first('category') }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
-                                        <label for="category">Image Upload</label>
-                                        <input type="file" class="form-control" name="file" accept="/*">
+                                        <label for="image">Image Upload</label>
+                                        <input type="file" class="form-control" name="image" accept="/*">
+                                        @if($errors->has('image'))
+                                        <span class="invalid-feedback" role="alert" style="color:red">
+                                            <strong>{{ $errors->first('image') }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
+                                </div>                
                                 </div>
                             </div>
                             <div class="well" style="overflow: auto">
                                 <div class="form-row mb-10">
                                     <div class="col-md-12 col-sm-12 col-xs-12 mb-3">
-                                        <label for="category">Short Description</label>
-                                        <textarea class="form-control" name="short_desc" placeholder="Short Description"></textarea>
-                                    </div>                                 
-                                </div>
-                            </div>
-                            <div class="well" style="overflow: auto">
-                                <div class="form-row mb-10">
-                                    <div class="col-md-12 col-sm-12 col-xs-12 mb-3">
-                                        <label for="category">Body</label>
-                                        <textarea class="form-control" name="body" placeholder="Enter full description"></textarea>
+                                        <label for="category">Body*</label>
+                                        <textarea class="form-control" name="body" placeholder="Enter full description" id="body"></textarea>
+                                        @if($errors->has('body'))
+                                        <span class="invalid-feedback" role="alert" style="color:red">
+                                            <strong>{{ $errors->first('body') }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>                                 
                                 </div>
                             </div>
@@ -76,5 +107,46 @@
     </div>
 </div>
 @endsection
+
+@section('script')
+
+ <script src="{{ asset('ckeditor4/ckeditor.js')}}"></script>
+<script>
+    CKEDITOR.replace( 'body', {
+        height: 400,
+        filebrowserUploadUrl: "{{route('admin.ck_editor_image_upload', ['_token' => csrf_token() ])}}",
+        filebrowserUploadMethod: 'form'
+    } );
+
+    $(document).ready(function(){
+        function fetch_category(query){
+            $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+            $.ajax({
+                url: "{{route('admin.populate_category')}}",
+                method: "GET",
+                data: {query:query},
+                success: function(data){
+                  if(data == 1){
+                    
+                  }
+                  else{
+                    $("#category").html(data);
+                  }
+                }
+            })
+        }
+        $(document).on('change', '#type', function(){
+            var query = $(this).val();
+            if(query){
+                fetch_category(query);
+            }
+        });
+    });
+</script>
+ @endsection
 
 
