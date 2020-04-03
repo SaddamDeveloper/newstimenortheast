@@ -1,5 +1,5 @@
 
-@extends('web.template.web_master')
+@extends('as.template.web_master')
 
 @section('content')
 
@@ -11,7 +11,7 @@
                     <div class="single-post">
                         
                         <div class="post-title-area">
-                            <a class="post-cat" href="#">{{$single_post->category_name}}</a>
+                            <a class="post-cat" href="{{route('ass.news', ['id'=> encrypt($single_post->cat_id)])}}">{{$single_post->category_name}}</a>
                             <h2 class="post-title">
                                 {{$single_post->title}}
                             </h2>
@@ -64,26 +64,29 @@
 
                         <div id="latest-news-slide" class="owl-carousel owl-theme latest-news-slide">
                             @if(isset($related_post) && !empty($related_post))
-                            @foreach($related_post as $rp)
-                            @foreach($rp->posts as $re_post)
+                            @foreach($related_post as $post)
+                            @php
+                                // dd($re_post->slug);
+                            @endphp
                             <div class="item">
                                 <div class="post-block-style clearfix">
                                     <div class="post-thumb">
-                                        <a href="{{URL::to('/')}}/posts/{{Str::of($re_post->title)->slug('-')}}/{{$re_post->id}}"><img class="img-fluid" src="{{asset('post/thumb/'.$re_post->image)}}" alt="" /></a>
+                                        <a href="{{route('assamese.viewPost',['slug'=>$post->slug, 'id' => $post->id])}}">
+                                            <img class="img-fluid" src="{{asset('post/thumb/'.$post->image)}}" alt="" />
+                                        </a>
                                     </div>
-                                    <a class="post-cat" href="#">{{$rp->category_name}}</a>
+                                    {{-- <a class="post-cat" href="#">{{$re_post->category_name}}</a> --}}
                                     <div class="post-content">
                                         <h2 class="post-title title-medium">
-                                            <a href="{{URL::to('/')}}/posts/{{Str::of($re_post->title)->slug('-')}}/{{$re_post->id}}">{!! Str::words($re_post->title, 6, ' ...') !!}</a>
+                                            <a href="{{route('assamese.viewPost',['slug'=>$post->slug,'id'=>$post->id])}}">{!! Str::words($post->title, 6, ' ...') !!}</a>
                                         </h2>
                                         <div class="post-meta">
-                                            <span class="post-author"><a href="#">{{$re_post->author}}</a></span>
-                                            <span class="post-date">{{ date('M d, Y', strtotime($re_post->created_at))}}</span>
+                                            <span class="post-author"><a href="#">{{$post->author}}</a></span>
+                                            <span class="post-date">{{ date('M d, Y', strtotime($post->created_at))}}</span>
                                         </div>
                                     </div><!-- Post content end -->
                                 </div><!-- Post Block style end -->
                             </div><!-- Item 1 end -->
-                            @endforeach
                             @endforeach
                             @endif
                         </div><!-- Carousel end -->

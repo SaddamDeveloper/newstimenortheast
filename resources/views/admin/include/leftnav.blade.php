@@ -45,6 +45,7 @@
               <ul class="nav child_menu">
                 <li><a href="{{route('admin.slider_list')}}">Slider Post List</a></li>
                 <li><a href="{{route('admin.four_list')}}">Four Post List</a></li>
+                <li><a href="{{route('admin.popular_list')}}">Popular List</a></li>
               </ul>
             </li>
           </ul>

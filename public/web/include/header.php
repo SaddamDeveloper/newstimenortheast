@@ -50,7 +50,7 @@
 	         <div class="row">
 	            <div class="col-md-8">
 	               <div class="ts-date">
-	                  <i class="fa fa-calendar-check-o"></i>May 29, 2017
+	                  <i class="fa fa-calendar-check-o"></i>{{ date('M d, Y', strtotime(Carbon\Carbon::today()))}}
 	               </div>
 	               <ul class="unstyled top-nav">
 	                  <li><b>Showing in :</b></li>

@@ -1,5 +1,5 @@
 
-@extends('web.template.web_master')
+@extends('as.template.web_master')
 
 @section('content')
 
@@ -9,14 +9,15 @@
                 <div class="col-lg-8 col-md-12">
 
                     <div class="block category-listing news-list">
-                        <h3 class="block-title"><span>Technology</span></h3>
-
+                        <h3 class="block-title"><span>{{$cat_name}}</span></h3>
+                        @if(isset($news) && !empty($news))
+                        @foreach($news as $post)
                         <div class="post-block-style post-list clearfix">
                             <div class="row">
                                 <div class="col-lg-4 col-md-6 col-xs-6">
                                     <div class="post-thumb thumb-float-style">
-                                        <a href="{{route('web.news.single-news')}}">
-                                            <img class="img-fluid" src="{{asset('web/images/news/tech/robot5.jpg')}}" alt="" />
+                                        <a href="{{route('assamese.viewPost',['slug'=>urlencode($post->slug),'id'=>$post->id])}}">
+                                            <img class="img-fluid" src="{{asset('/post/thumb/'.$post->image)}}" alt="" />
                                         </a>
                                     </div>
                                 </div><!-- Img thumb col end -->
@@ -24,160 +25,21 @@
                                 <div class="col-lg-8 col-md-6 col-xs-6">
                                     <div class="post-content">
                                         <h2 class="post-title">
-                                            <a href="{{route('web.news.single-news')}}">Robots in hospitals can be quite handy to navigate around the hospital</a>
+                                            <a href="{{route('assamese.viewPost',['slug'=>urlencode($post->slug),'id'=>$post->id])}}">{!! Str::words($post->title, 6, ' ...') !!}</a>
                                         </h2>
                                         <div class="post-meta">
-                                            <span class="post-author"><a href="#">John Doe</a></span>
-                                            <span class="post-date">Feb 24, 2017</span>
+                                            <span class="post-author"><a href="#">{{$post->author}}</a></span>
+                                            <span class="post-date">{{ date('F d, Y', strtotime($post->created_at))}}</span>
                                             <span class="post-comment pull-right"><i class="fa fa-eye"></i>
                                             <a href="#" class="comments-link"><span>03</span></a></span>
                                         </div>
-                                        <p>Lumbersexual meh sustainable Thundercats meditation kogi. Tilde Pitchfork vegan, gentrify minim elit semiotics non messenger bag Austin which roasted ...</p>
+                                        <p>{!! Str::words($post->body, 20, ' ...') !!}</p>
                                     </div><!-- Post content end -->
                                 </div><!-- Post col end -->
                             </div><!-- 1st row end -->
                         </div><!-- 1st Post list end -->
-
-                        <div class="post-block-style post-float-half post-list clearfix">
-                            <div class="post-thumb">
-                                <a href="#">
-                                    <img class="img-fluid" src="{{asset('web/images/news/video/video1.jpg')}}" alt="">
-                                </a>
-                            </div>
-                            <div class="post-content">
-                                <h2 class="post-title">
-                                    <a href="#">KJerry's will sell food cream that tastes like your favorite video</a>
-                                </h2>
-                                <div class="post-meta">
-                                    <span class="post-author"><a href="#">John Doe</a></span>
-                                    <span class="post-date">Mar 29, 2017</span>
-                                    <span class="post-comment pull-right"><i class="fa fa-eye"></i>
-                                    <a href="#" class="comments-link"><span>03</span></a></span>
-                                </div>
-                                <p>Lumbersexual meh sustainable Thundercats meditation kogi. Tilde Pitchfork vegan, gentrify minim elit semiotics non messenger bag Austin which roasted ...</p>
-                            </div><!-- Post content end -->
-                        </div>
-
-                        <div class="post-block-style post-float-half post-list clearfix">
-                            <div class="post-thumb">
-                                <a href="#">
-                                    <img class="img-fluid" src="{{asset('web/images/news/lifestyle/architecture3.jpg')}}" alt="">
-                                </a>
-                            </div>
-                            <div class="post-content">
-                                <h2 class="post-title">
-                                    <a href="#">KJerry's will sell food cream that tastes like your favorite video</a>
-                                </h2>
-                                <div class="post-meta">
-                                    <span class="post-author"><a href="#">John Doe</a></span>
-                                    <span class="post-date">Mar 29, 2017</span>
-                                    <span class="post-comment pull-right"><i class="fa fa-eye"></i>
-                                    <a href="#" class="comments-link"><span>03</span></a></span>
-                                </div>
-                                <p>Lumbersexual meh sustainable Thundercats meditation kogi. Tilde Pitchfork vegan, gentrify minim elit semiotics non messenger bag Austin which roasted ...</p>
-                            </div><!-- Post content end -->
-                        </div>
-
-                        <div class="post-block-style post-float-half post-list clearfix">
-                            <div class="post-thumb">
-                                <a href="#">
-                                    <img class="img-fluid" src="{{asset('web/images/news/lifestyle/architecture2.jpg')}}" alt="">
-                                </a>
-                            </div>
-                            <div class="post-content">
-                                <h2 class="post-title">
-                                    <a href="#">KJerry's will sell food cream that tastes like your favorite video</a>
-                                </h2>
-                                <div class="post-meta">
-                                    <span class="post-author"><a href="#">John Doe</a></span>
-                                    <span class="post-date">Mar 29, 2017</span>
-                                    <span class="post-comment pull-right"><i class="fa fa-eye"></i>
-                                    <a href="#" class="comments-link"><span>03</span></a></span>
-                                </div>
-                                <p>Lumbersexual meh sustainable Thundercats meditation kogi. Tilde Pitchfork vegan, gentrify minim elit semiotics non messenger bag Austin which roasted ...</p>
-                            </div><!-- Post content end -->
-                        </div>
-
-                        <div class="post-block-style post-float-half post-list clearfix">
-                            <div class="post-thumb">
-                                <a href="#">
-                                    <img class="img-fluid" src="{{asset('web/images/news/lifestyle/health1.jpg')}}" alt="">
-                                </a>
-                            </div>
-                            <div class="post-content">
-                                <h2 class="post-title">
-                                    <a href="#">KJerry's will sell food cream that tastes like your favorite video</a>
-                                </h2>
-                                <div class="post-meta">
-                                    <span class="post-author"><a href="#">John Doe</a></span>
-                                    <span class="post-date">Mar 29, 2017</span>
-                                    <span class="post-comment pull-right"><i class="fa fa-eye"></i>
-                                    <a href="#" class="comments-link"><span>03</span></a></span>
-                                </div>
-                                <p>Lumbersexual meh sustainable Thundercats meditation kogi. Tilde Pitchfork vegan, gentrify minim elit semiotics non messenger bag Austin which roasted ...</p>
-                            </div><!-- Post content end -->
-                        </div>
-
-                        <div class="post-block-style post-float-half post-list clearfix">
-                            <div class="post-thumb">
-                                <a href="#">
-                                    <img class="img-fluid" src="{{asset('web/images/news/lifestyle/health5.jpg')}}" alt="">
-                                </a>
-                            </div>
-                            <div class="post-content">
-                                <h2 class="post-title">
-                                    <a href="#">KJerry's will sell food cream that tastes like your favorite video</a>
-                                </h2>
-                                <div class="post-meta">
-                                    <span class="post-author"><a href="#">John Doe</a></span>
-                                    <span class="post-date">Mar 29, 2017</span>
-                                    <span class="post-comment pull-right"><i class="fa fa-eye"></i>
-                                    <a href="#" class="comments-link"><span>03</span></a></span>
-                                </div>
-                                <p>Lumbersexual meh sustainable Thundercats meditation kogi. Tilde Pitchfork vegan, gentrify minim elit semiotics non messenger bag Austin which roasted ...</p>
-                            </div><!-- Post content end -->
-                        </div>
-
-                        <div class="post-block-style post-float-half post-list clearfix">
-                            <div class="post-thumb">
-                                <a href="#">
-                                    <img class="img-fluid" src="{{asset('web/images/news/lifestyle/travel4.jpg')}}" alt="">
-                                </a>
-                            </div>
-                            <div class="post-content">
-                                <h2 class="post-title">
-                                    <a href="#">KJerry's will sell food cream that tastes like your favorite video</a>
-                                </h2>
-                                <div class="post-meta">
-                                    <span class="post-author"><a href="#">John Doe</a></span>
-                                    <span class="post-date">Mar 29, 2017</span>
-                                    <span class="post-comment pull-right"><i class="fa fa-eye"></i>
-                                    <a href="#" class="comments-link"><span>03</span></a></span>
-                                </div>
-                                <p>Lumbersexual meh sustainable Thundercats meditation kogi. Tilde Pitchfork vegan, gentrify minim elit semiotics non messenger bag Austin which roasted ...</p>
-                            </div><!-- Post content end -->
-                        </div>
-
-                        <div class="post-block-style post-float-half post-list clearfix">
-                            <div class="post-thumb">
-                                <a href="#">
-                                    <img class="img-fluid" src="{{asset('web/images/news/lifestyle/travel5.jpg')}}" alt="">
-                                </a>
-                            </div>
-                            <div class="post-content">
-                                <h2 class="post-title">
-                                    <a href="#">KJerry's will sell food cream that tastes like your favorite video</a>
-                                </h2>
-                                <div class="post-meta">
-                                    <span class="post-author"><a href="#">John Doe</a></span>
-                                    <span class="post-date">Mar 29, 2017</span>
-                                    <span class="post-comment pull-right"><i class="fa fa-eye"></i>
-                                    <a href="#" class="comments-link"><span>03</span></a></span>
-                                </div>
-                                <p>Lumbersexual meh sustainable Thundercats meditation kogi. Tilde Pitchfork vegan, gentrify minim elit semiotics non messenger bag Austin which roasted ...</p>
-                            </div><!-- Post content end -->
-                        </div>
-
+                        @endforeach
+                        @endif
                     </div><!-- Block Technology end -->
 
                     <div class="paging">

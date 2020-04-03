@@ -21,25 +21,25 @@
                             <a href="#"><span class="catTitle">ABOUT</span></a>
                         </li>
                         <li>
-                            <a href="{{route('web.news.news-list')}}"><span class="catTitle">INDIA</span></a>
+                            <a href="{{route('web.news', ['id'=> encrypt(12)])}}"><span class="catTitle">INDIA</span></a>
                         </li>
                         <li>
-                            <a href="{{route('web.news.news-list')}}"><span class="catTitle">WORLD</span></a>
+                            <a href="{{route('web.news', ['id'=> encrypt(13)])}}"><span class="catTitle">WORLD</span></a>
                         </li>
                         <li>
-                            <a href="{{route('web.news.news-list')}}"><span class="catTitle">GUWAHATI</span></a>
+                            <a href="{{route('web.news', ['id'=> encrypt(2)])}}"><span class="catTitle">GUWAHATI</span></a>
                         </li>
                         <li>
-                            <a href="{{route('web.news.news-list')}}"><span class="catTitle">ASSAM</span></a>
+                            <a href="{{route('web.news', ['id'=> encrypt(1)])}}"><span class="catTitle">ASSAM</span></a>
                         </li>
                         <li>
-                            <a href="{{route('web.news.news-list')}}"><span class="catTitle">NORTHEAST</span></a>
+                            <a href="{{route('web.news', ['id'=> encrypt(14)])}}"><span class="catTitle">NORTHEAST</span></a>
                         </li>
                         <li>
-                            <a href="{{route('web.news.news-list')}}"><span class="catTitle">SPORTS</span></a>
+                            <a href="{{route('web.news', ['id'=> encrypt(16)])}}"><span class="catTitle">SPORTS</span></a>
                         </li>
                         <li>
-                            <a href="{{route('web.news.news-list')}}"><span class="catTitle">ENTERTAINMENT</span></a>
+                            <a href="{{route('web.news', ['id'=> encrypt(15)])}}"><span class="catTitle">ENTERTAINMENT</span></a>
                         </li>
                         <li>
                             <a href="#"><span class="catTitle">VIDEO</span></a>

@@ -10,6 +10,7 @@ use Intervention\Image\Facades\Image;
 use App\Post;
 use DataTables;
 use File;
+use Illuminate\Support\Str;
 class PostPagesController extends Controller
 {
     public function createPost(){
@@ -31,6 +32,9 @@ class PostPagesController extends Controller
         $body = $request->input('body');
         $author = $request->input('author');
         $category = $request->input('category');
+       
+        $slug = NULL;
+        $type == 1 ? $slug = Str::slug($title) : $slug = $this->makeSlug($title);
 
         if($request->hasfile('image'))
         {
@@ -54,6 +58,7 @@ class PostPagesController extends Controller
                             'cat_id' => $category,
                             'post_type' => $type,
                             'author' => $author,
+                            'slug' => $slug,
                             'created_at' => Carbon::now()->setTimezone('Asia/Kolkata')->toDateTimeString(),
                         ]);
 
@@ -76,10 +81,19 @@ class PostPagesController extends Controller
 
     public function ajaxGetPostList(){
         $query = DB::table('posts')
-        ->select('posts.*','category.category_name as c_name')
-        ->join('category','posts.cat_id','=','category.id')
-        ->where('posts.post_type', 1)
-        ->orderBy('posts.id','desc');
+            ->select('posts.*','category.category_name as c_name')
+            ->join('category','posts.cat_id','=','category.id')
+            ->where('posts.post_type', 1)
+            ->orderBy('posts.id','desc');
+
+        $slide_post = DB::table('posts')
+            ->select('posts.*', 'category.category_name as category_name')
+            ->join('category','posts.cat_id','=','category.id')
+            ->where('posts.hp_section1', 1)
+            ->where('posts.post_type', 1)
+            ->get();
+
+        $slider_count = count($slide_post);
         return datatables()->of($query->get())
         ->addIndexColumn()
         ->addColumn('category', function($row){
@@ -102,14 +116,17 @@ class PostPagesController extends Controller
         })
         ->addColumn('section', function($row){
             if($row->hp_section1 == 1){
-                $btn = '<a href="'.route('admin.post_slide', ['id' => encrypt($row->id), 'slide' => encrypt(3)]).'" class="btn btn-danger">Unslide</a>';
+                    $btn = '<a href="'.route('admin.post_slide', ['id' => encrypt($row->id), 'slide' => encrypt(3)]).'" class="btn btn-danger">Unslide</a>';
             }
             else if($row->hp_section1 == 2){
                 $btn = '<a href="'.route('admin.post_four', ['id' => encrypt($row->id), 'four' => encrypt(3)]).'" class="btn btn-danger">UnFour</a>';
+            }else if($row->popular_post == 1){
+                $btn = '<a href="'.route('admin.popular_post', ['id' => encrypt($row->id), 'popular' => encrypt(2)]).'" class="btn btn-danger">Unpopular</a>';
             }
             else{
                 $btn = '<a href="'.route('admin.post_slide', ['id' => encrypt($row->id), 'slide' => encrypt(1)]).'" class="btn btn-info">Slide</a>
-                        <a href="'.route('admin.post_four', ['id' => encrypt($row->id), 'four' => encrypt(2)]).'" class="btn btn-info">Four</a>';
+                        <a href="'.route('admin.post_four', ['id' => encrypt($row->id), 'four' => encrypt(2)]).'" class="btn btn-info">Four</a>
+                        <a href="'.route('admin.popular_post', ['id' => encrypt($row->id), 'popular' => encrypt(1)]).'" class="btn btn-info">Popular</a>';
             }
             return $btn;
         })
@@ -125,6 +142,10 @@ class PostPagesController extends Controller
         ->orderBy('posts.id','desc');
         return datatables()->of($query->get())
         ->addIndexColumn()
+        ->addColumn('title', function($row){
+            $title = Str::words($row->title, 3, ' ...');
+            return $title;
+        })
         ->addColumn('category', function($row){
             $btn = '<a href="#" class="btn btn-primary btn-sm">'.$row->c_name.'</a>';
             return $btn;
@@ -149,14 +170,17 @@ class PostPagesController extends Controller
             }
             else if($row->hp_section1 == 2){
                 $btn = '<a href="'.route('admin.post_four', ['id' => encrypt($row->id), 'four' => encrypt(3)]).'" class="btn btn-danger">UnFour</a>';
+            }else if($row->popular_post == 1){
+                $btn = '<a href="'.route('admin.popular_post', ['id' => encrypt($row->id), 'popular' => encrypt(2)]).'" class="btn btn-danger">Unpopular</a>';
             }
             else{
                 $btn = '<a href="'.route('admin.post_slide', ['id' => encrypt($row->id), 'slide' => encrypt(1)]).'" class="btn btn-info">Slide</a>
-                        <a href="'.route('admin.post_four', ['id' => encrypt($row->id), 'four' => encrypt(2)]).'" class="btn btn-info">Four</a>';
+                        <a href="'.route('admin.post_four', ['id' => encrypt($row->id), 'four' => encrypt(2)]).'" class="btn btn-info">Four</a>
+                        <a href="'.route('admin.popular_post', ['id' => encrypt($row->id), 'popular' => encrypt(1)]).'" class="btn btn-info">Popular</a>';
             }
             return $btn;
         })
-        ->rawColumns(['category','action', 'section'])
+        ->rawColumns(['title', 'category','action', 'section'])
         ->make(true);
     }
 
@@ -252,6 +276,8 @@ class PostPagesController extends Controller
         $body = $request->input('body');
         $author = $request->input('author');
         $category = $request->input('category');
+        $slug = NULL;
+        $type == 1 ? $slug = Str::slug($title) : $slug = $this->makeSlug($title);
         $id = $request->input('postId');
         if($request->hasfile('image'))
         {
@@ -316,6 +342,7 @@ class PostPagesController extends Controller
                             'cat_id' => $category,
                             'post_type' => $type,
                             'author' => $author,
+                            'slug' => $slug,
                             'updated_at' => Carbon::now()->setTimezone('Asia/Kolkata')->toDateTimeString(),
                         ]);
 
@@ -452,25 +479,81 @@ class PostPagesController extends Controller
         ->rawColumns(['category', 'type', 'action'])
         ->make(true);
     }
+    public function listPopular(){
+        return view('admin.popular_list_post');
+    }
+    public function ajaxGetPopularPostList(){
+        $query = DB::table('posts')
+            ->where('popular_post', 1)
+            ->select('posts.*','category.category_name as c_name', 'category.as_category_name as as_category_name')
+            ->join('category','posts.cat_id','=','category.id')
+            ->orderBy('posts.id','desc');
+
+        return datatables()->of($query->get())
+        ->addIndexColumn()
+        ->addColumn('category', function($row){
+            if($row->post_type == 1){
+                $btn = '<a href="#" class="btn btn-primary btn-sm">'.$row->c_name.'</a>';
+                return $btn;
+            }
+            else if($row->post_type == 2){
+                $btn = '<a href="#" class="btn btn-primary btn-sm">'.$row->as_category_name.'</a>';
+                return $btn;
+            }
+        })
+        ->addColumn('type', function($row){
+            if($row->post_type == 1){
+                $btn = '<a href="#" class="btn btn-primary btn-sm">English</a>';
+                return $btn;
+            }else if($row->post_type == 2){
+                $btn = '<a href="#" class="btn btn-primary btn-sm">Assamese</a>';
+                return $btn;
+            }
+        })
+        ->addColumn('action', function($row){
+            if($row->popular_post == 1){
+                $btn = '<a href="'.route('admin.popular_post', ['id' => encrypt($row->id), 'popular' => encrypt(2)]).'" class="btn btn-danger">Remove</a>';
+            }
+            return $btn;
+        })
+        ->rawColumns(['category','action', 'type'])
+        ->make(true);
+    }
+    public function updatePopular($postId, $popularId){
+      try {
+            $id = decrypt($postId);
+            $pId = decrypt($popularId);
+        }
+        catch(DecryptException $e) {
+            return redirect()->back();
+        }
+
+        $popular_update = DB::table('posts')
+        ->where('id', $id)
+        ->update([
+            'popular_post' => $pId,
+            'updated_at' => Carbon::now()->setTimezone('Asia/Kolkata')->toDateTimeString()
+        ]);
+
+        if($popular_update){
+            return redirect()->back()->with('message','Post Updated Successfully!');
+        }else{
+            return redirect()->back()->with('error','Something Went Wrong Please Try Again');
+        }
+    }
     function populateCatgory(Request $request){
         if($request->ajax()){
             $type = $request->get('query');
             if(!empty($type)){
                     $category = NULL;
                     if($type == 1){
-                        $eng_category = DB::table('posts')
-                            ->select('posts.cat_id', 'category.category_name as category_name')
-                            ->join('category','posts.cat_id','=','category.id')
-                            ->where('post_type', $type)
-                            ->pluck('category_name', 'cat_id');
+                        $eng_category = DB::table('category')
+                            ->pluck('category_name', 'id');
 
                         $category = $eng_category;
                     }else if($type == 2){
-                        $ass_category = DB::table('posts')
-                            ->select('posts.cat_id', 'category.as_category_name as category_name')
-                            ->join('category','posts.cat_id','=','category.id')
-                            ->where('post_type', $type)
-                            ->pluck('category_name', 'cat_id');
+                        $ass_category = DB::table('category')
+                            ->pluck('as_category_name', 'id');
 
                         $category = $ass_category;
                     }
@@ -482,5 +565,9 @@ class PostPagesController extends Controller
                 return 1;
             }
         }
+    }
+
+    function makeSlug($title){
+        return preg_replace('/\s+/u', '-', trim($title));
     }
 }

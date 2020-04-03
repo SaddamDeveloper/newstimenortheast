@@ -28,7 +28,7 @@
                                 <div class="form-row mb-10">
                                     <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                         <label for="title">Title</label>
-                                        <input type="text" class="form-control" value="" name="title" placeholder="Enter Title">
+                                        <input type="text" class="form-control" name="title" placeholder="Enter Title" value="{{old('title')}}">
                                         @if($errors->has('title'))
                                         <span class="invalid-feedback" role="alert" style="color:red">
                                             <strong>{{ $errors->first('title') }}</strong>
@@ -39,8 +39,8 @@
                                         <label for="type">Type</label>
                                         <select class="form-control" name="type" id="type">
                                             <option selected="" disabled="" value="">Select Type</option>
-                                            <option value="1">English</option>
-                                            <option value="2">Assamese</option>
+                                            <option value="1" >English</option>
+                                            <option value="2" >Assamese</option>
                                         </select>
                                         @if($errors->has('type'))
                                         <span class="invalid-feedback" role="alert" style="color:red">
@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="col-md-4 col-sm-6 col-xs-12 mb-3">
                                         <label for="author">Author</label>
-                                        <input type="text" class="form-control" value="" name="author" placeholder="Author">
+                                        <input type="text" class="form-control" value="{{old('author')}}" name="author" placeholder="Author">
                                         @if($errors->has('author'))
                                         <span class="invalid-feedback" role="alert" style="color:red">
                                             <strong>{{ $errors->first('author') }}</strong>
@@ -87,7 +87,7 @@
                                 <div class="form-row mb-10">
                                     <div class="col-md-12 col-sm-12 col-xs-12 mb-3">
                                         <label for="category">Body*</label>
-                                        <textarea class="form-control" name="body" placeholder="Enter full description" id="body"></textarea>
+                                        <textarea class="form-control" name="body" placeholder="Enter full description" id="body">{{old('body')}}</textarea>
                                         @if($errors->has('body'))
                                         <span class="invalid-feedback" role="alert" style="color:red">
                                             <strong>{{ $errors->first('body') }}</strong>
