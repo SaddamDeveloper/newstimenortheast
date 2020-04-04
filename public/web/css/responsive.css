@@ -522,17 +522,18 @@
    .pad-r-small, .pad-l-small {
       width: 50%;
    }
-   .pad-l-small {
-      padding-left: 1.5px;
-   }
-   .pad-r-small {
+   .pad-r-small:nth-child(odd) {
       padding-right: 1.5px;
    }
+   .pad-r-small:nth-child(even) {
+      padding-left: 1.5px;
+   }
    .post-overaly-style .post-content {
-      padding: 25px 10px;
+      padding: 15px 10px;
    }
    .fourNewsbox, .fourNewsbox img, .fourNewsboxTop, .fourNewsboxTop img {
       min-height: 150px;
+      max-height: 150px;
    }
 }
 

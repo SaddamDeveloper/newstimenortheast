@@ -1,6 +1,14 @@
 
 @extends('web.template.web_master')
 
+@section('meta')
+    <meta property="og:url"                content="http://webinfotechghy.xyz" />
+    <meta property="og:type"               content="news" />
+    <meta property="og:title"              content=" {{$single_post->title}}" />
+    <meta property="og:description"        content="{!! $single_post->body !!}" />
+    <meta property="og:image"              content="{{asset('post/'.$single_post->image)}}" />
+@endsection
+
 @section('content')
 
     <section class="block-wrapper">
@@ -72,7 +80,7 @@
                                 <div class="post-block-style clearfix">
                                     <div class="post-thumb">
                                         <a href="{{route('web.viewPost',['slug'=>$post->slug, 'id' => $post->id])}}">
-                                            <img class="img-fluid" src="{{asset('post/thumb/'.$post->image)}}" alt="" />
+                                            <img class="img-fluid single-news" src="{{asset('post/thumb/'.$post->image)}}" alt="" />
                                         </a>
                                     </div>
                                     {{-- <a class="post-cat" href="#">{{$re_post->category_name}}</a> --}}
@@ -141,7 +149,7 @@
                                             <div class="post-block-style post-float clearfix">
                                                 <div class="post-thumb">
                                                     <a href="{{route('web.viewPost',['slug'=>urlencode($post->slug),'id'=>$post->id])}}">
-                                                        <img class="img-fluid" src="{{asset('post/thumb/'.$post->image)}}" alt="" />
+                                                        <img class="img-fluid " src="{{asset('post/thumb/'.$post->image)}}" alt="" />
                                                     </a>
                                                 </div><!-- Post thumb end -->
 
@@ -158,9 +166,9 @@
                                     </ul><!-- List post end -->
                                 </div><!-- List post block end -->
                             @endif
-                            <div class="gap-40"></div>
                             @endforeach
                             @endif
+                            <div class="gap-40"></div>
                         </div><!-- Popular news widget end -->                          
 
                         <div class="widget text-center">

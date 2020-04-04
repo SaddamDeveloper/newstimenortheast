@@ -243,8 +243,8 @@
                                             @php
                                                 $count_as++;
                                             @endphp
-                                        <div class="gap-40"></div>
                                         @endforeach
+                                        <div class="gap-40"></div>
                                         <!-- Col end -->
                                     </div><!-- Tab pane Row 1 end -->
                             </div><!-- Tab pane 1 end -->
@@ -325,8 +325,8 @@
                                              @php
                                                  $count_as++;
                                              @endphp
-                                         <div class="gap-40"></div>
                                          @endforeach
+                                         <div class="gap-40"></div>
                                          <!-- Col end -->
                                      </div><!-- Tab pane Row 1 end -->
                              </div><!-- Tab pane 1 end -->
@@ -407,8 +407,8 @@
                                             @php
                                                 $count_as++;
                                             @endphp
-                                        <div class="gap-40"></div>
                                         @endforeach
+                                        <div class="gap-40"></div>
                                         <!-- Col end -->
                                     </div><!-- Tab pane Row 1 end -->
                             </div><!-- Tab pane 1 end -->
@@ -464,9 +464,9 @@
                                     </ul><!-- List post end -->
                                 </div><!-- List post block end -->
                                 @endif
-                                <div class="gap-40"></div>
                                 @endforeach
                                 @endif
+                                <div class="gap-40"></div>
                             </div><!-- Col 2 end -->
                             <div class="col-md-6">
                                 <h3 class="block-title"><span>{{$lifestyle_cat_name}}</span></h3>
@@ -513,9 +513,9 @@
                                     </ul><!-- List post end -->
                                 </div><!-- List post block end -->
                                 @endif
-                                <div class="gap-40"></div>
                                 @endforeach
                                 @endif
+                                <div class="gap-40"></div>
                             </div><!-- Col 2 end -->
                         </div><!-- Row end -->
                     </div><!-- Block Lifestyle end -->
@@ -584,9 +584,9 @@
                                     </ul><!-- List post end -->
                                 </div><!-- List post block end -->
                             @endif
-                            <div class="gap-40"></div>
                             @endforeach
                             @endif
+                            <div class="gap-40"></div>
                         </div><!-- Popular news widget end -->						
 
                         <div class="widget text-center">
@@ -658,9 +658,9 @@
                             </ul><!-- List post end -->
                         </div><!-- List post block end -->
                         @endif
-                        <div class="gap-40"></div>
                         @endforeach
                         @endif
+                        <div class="gap-40"></div>
                     </div><!-- Block end -->
                 </div><!-- Travel Col end -->
                 <div class="col-lg-4 col-md-12">
@@ -709,9 +709,9 @@
                             </ul><!-- List post end -->
                         </div><!-- List post block end -->
                         @endif
-                        <div class="gap-40"></div>
                         @endforeach
                         @endif
+                        <div class="gap-40"></div>
                     </div><!-- Block end -->
                 </div><!-- Travel Col end -->
                 <div class="col-lg-4 col-md-12">
@@ -760,9 +760,10 @@
                             </ul><!-- List post end -->
                         </div><!-- List post block end -->
                         @endif
-                        <div class="gap-40"></div>
                         @endforeach
                         @endif
+                        <div class="gap-40"></div>
+
                     </div><!-- Block end -->
                 </div><!-- Travel Col end -->
 
@@ -784,7 +785,7 @@
                                 <div class="post-block-style post-float-half clearfix">
                                     <div class="post-thumb">
                                         <a href="{{route('web.viewPost',['slug'=>urlencode($post->slug),'id'=>$post->id])}}">
-                                            <img class="img-fluid" src="{{asset('post/thumb/'.$post->image)}}" alt="" />
+                                            <img class="img-fluid single-news" src="{{asset('post/thumb/'.$post->image)}}" alt="" />
                                         </a>
                                     </div>
                                     <div class="post-content">
@@ -809,7 +810,7 @@
                                 <div class="post-block-style post-float-half clearfix">
                                     <div class="post-thumb">
                                         <a href="{{route('web.viewPost',['slug'=>urlencode($post->slug),'id'=>$post->id])}}">
-                                            <img class="img-fluid" src="{{asset('post/thumb/'.$post->image)}}" alt="" />
+                                            <img class="img-fluid single-news" src="{{asset('post/thumb/'.$post->image)}}" alt="" />
                                         </a>
                                     </div>
                                     <div class="post-content">
