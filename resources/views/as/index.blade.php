@@ -57,115 +57,35 @@
         <div class="container">
             <h3 class="block-title"><span>Latest Videos</span></h3>
             <div id="latest-news-slide" class="owl-carousel owl-theme latest-news-slide">
+                @if(isset($youtube_post) && !empty($youtube_post))
+                @foreach($youtube_post as $post)
                 <div class="item">
                     <ul class="list-post">
                         <li class="clearfix">
                               <div class="post-block-style clearfix">
                                 <div class="post-thumb">
-                                    <img class="img-fluid" src="{{asset('web/images/news/video/video4.jpg')}}" alt="">
-                                    <a class="popup cboxElement" href="https://www.youtube.com/embed/XhveHKJWnOQ?autoplay=1&amp;loop=1">
-                                  <div class="video-icon">
+                                    <img class="img-fluid" src="{{asset('youtube/thumb/'.$post->thumbnail)}}" alt="">
+                                    <a class="popup cboxElement" href="https://www.youtube.com/embed/{{$post->v_id}}?autoplay=1&amp;loop=1">
+                                    <div class="video-icon">
                                       <i class="fa fa-play"></i>
                                    </div>
                                 </a>
                                </div><!-- Post thumb end -->
                                 <div class="post-content">
                                      <h2 class="post-title title-small">
-                                         <a href="#">Netcix cuts out the chill with an integrated...</a>
+                                         <a href="#">{!! Str::words($post->title, 10, ' ...') !!}</a>
                                      </h2>
                                      <div class="post-meta">
-                                         <span class="post-author"><a href="#">John Doe</a></span>
-                                         <span class="post-date">Feb 24, 2017</span>
+                                         <span class="post-author"><a href="#">{{$post->author}}</a></span>
+                                         <span class="post-date">{{ date('F d, Y', strtotime($post->created_at))}}</span>
                                      </div>
                                  </div><!-- Post content end -->
                             </div><!-- Post Block style end -->
                         </li><!-- Li end -->
                     </ul><!-- List post 1 end -->
-
                 </div><!-- Item 1 end -->
-
-                <div class="item">
-
-                    <ul class="list-post">
-                        <li class="clearfix">
-                              <div class="post-block-style clearfix">
-                                <div class="post-thumb">
-                                    <img class="img-fluid" src="{{asset('web/images/news/video/video3.jpg')}}" alt="">
-                                    <a class="popup cboxElement" href="https://www.youtube.com/embed/XhveHKJWnOQ?autoplay=1&amp;loop=1">
-                                  <div class="video-icon">
-                                      <i class="fa fa-play"></i>
-                                   </div>
-                                </a>
-                               </div><!-- Post thumb end -->
-                                <div class="post-content">
-                                     <h2 class="post-title title-small">
-                                         <a href="#">Netcix cuts out the chill with an integrated...</a>
-                                     </h2>
-                                     <div class="post-meta">
-                                         <span class="post-author"><a href="#">John Doe</a></span>
-                                         <span class="post-date">Feb 24, 2017</span>
-                                     </div>
-                                 </div><!-- Post content end -->
-                            </div><!-- Post Block style end -->
-                        </li><!-- Li end -->
-                    </ul><!-- List post 2 end -->
-                    
-                </div><!-- Item 2 end -->
-
-                <div class="item">
-
-                    <ul class="list-post">
-                        <li class="clearfix">
-                              <div class="post-block-style clearfix">
-                                <div class="post-thumb">
-                                    <img class="img-fluid" src="{{asset('web/images/news/video/video2.jpg')}}" alt="">
-                                    <a class="popup cboxElement" href="https://www.youtube.com/embed/XhveHKJWnOQ?autoplay=1&amp;loop=1">
-                                  <div class="video-icon">
-                                      <i class="fa fa-play"></i>
-                                   </div>
-                                </a>
-                               </div><!-- Post thumb end -->
-                                <div class="post-content">
-                                     <h2 class="post-title title-small">
-                                         <a href="#">Netcix cuts out the chill with an integrated...</a>
-                                     </h2>
-                                     <div class="post-meta">
-                                         <span class="post-author"><a href="#">John Doe</a></span>
-                                         <span class="post-date">Feb 24, 2017</span>
-                                     </div>
-                                 </div><!-- Post content end -->
-                            </div><!-- Post Block style end -->
-                        </li><!-- Li end -->
-                    </ul><!-- List post 3 end -->
-                    
-                </div><!-- Item 3 end -->
-
-                <div class="item">
-                    <ul class="list-post">
-                        <li class="clearfix">
-                            <div class="post-block-style clearfix">
-                                <div class="post-thumb">
-                                    <img class="img-fluid" src="{{asset('web/images/news/video/video1.jpg')}}" alt="">
-                                    <a class="popup cboxElement" href="https://www.youtube.com/embed/XhveHKJWnOQ?autoplay=1&amp;loop=1">
-                                  <div class="video-icon">
-                                      <i class="fa fa-play"></i>
-                                   </div>
-                                </a>
-                               </div><!-- Post thumb end -->
-                                <div class="post-content">
-                                     <h2 class="post-title title-small">
-                                         <a href="#">Netcix cuts out the chill with an integrated...</a>
-                                     </h2>
-                                     <div class="post-meta">
-                                         <span class="post-author"><a href="#">John Doe</a></span>
-                                         <span class="post-date">Feb 24, 2017</span>
-                                     </div>
-                                 </div><!-- Post content end -->
-                            </div>
-                        </li><!-- Li end -->
-                    </ul><!-- List post 4 end -->
-                    
-                </div><!-- Item 4 end -->
+                @endforeach
+                @endif
             </div><!-- Latest News owl carousel end-->
         </div>
     </section><!--- Latest Video end -->
@@ -793,7 +713,7 @@
                                     </div>
                                     <div class="post-content">
                                          <h2 class="post-title">
-                                             <a href="{{route('assamese.viewPost',['slug'=>urlencode($post->slug),'id'=>$post->id])}}">{{$post->title}}</a>
+                                             <a href="{{route('assamese.viewPost',['slug'=>urlencode($post->slug),'id'=>$post->id])}}">{!! Str::words($post->title, 10, ' ...') !!}</a>
                                          </h2>
                                          <div class="post-meta">
                                              <span class="post-author"><a href="#">{{$post->author}}</a></span>
@@ -812,13 +732,13 @@
                                 @foreach($business_posts_2 as $post)
                                 <div class="post-block-style post-float-half clearfix">
                                     <div class="post-thumb">
-                                        <a href="#">
+                                        <a href="{{route('assamese.viewPost',['slug'=>urlencode($post->slug),'id'=>$post->id])}}">
                                             <img class="img-fluid" src="{{asset('post/thumb/'.$post->image)}}" alt="" />
                                         </a>
                                     </div>
                                     <div class="post-content">
                                          <h2 class="post-title">
-                                             <a href="#">{{$post->title}}</a>
+                                             <a href="{{route('assamese.viewPost',['slug'=>urlencode($post->slug),'id'=>$post->id])}}">{!! Str::words($post->title, 10, ' ...') !!}}</a>
                                          </h2>
                                          <div class="post-meta">
                                              <span class="post-author"><a href="#">{{$post->author}}</a></span>

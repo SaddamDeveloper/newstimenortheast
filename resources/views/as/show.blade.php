@@ -71,14 +71,14 @@
                             <div class="item">
                                 <div class="post-block-style clearfix">
                                     <div class="post-thumb">
-                                        <a href="{{route('assamese.viewPost',['slug'=>$post->slug, 'id' => $post->id])}}">
+                                        <a href="{{route('assamese.viewPost',['slug'=>urlencode($post->slug), 'id' => $post->id])}}">
                                             <img class="img-fluid" src="{{asset('post/thumb/'.$post->image)}}" alt="" />
                                         </a>
                                     </div>
                                     {{-- <a class="post-cat" href="#">{{$re_post->category_name}}</a> --}}
                                     <div class="post-content">
                                         <h2 class="post-title title-medium">
-                                            <a href="{{route('assamese.viewPost',['slug'=>$post->slug,'id'=>$post->id])}}">{!! Str::words($post->title, 6, ' ...') !!}</a>
+                                            <a href="{{route('assamese.viewPost',['slug'=>urlencode($post->slug),'id'=>$post->id])}}">{!! Str::words($post->title, 6, ' ...') !!}</a>
                                         </h2>
                                         <div class="post-meta">
                                             <span class="post-author"><a href="#">{{$post->author}}</a></span>

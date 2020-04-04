@@ -144,22 +144,22 @@ class MainController extends Controller
         $travel_cat_name = $travel_cat_name->category_name;
 
         $lifestyle_1 = DB::table('posts')
-                ->select('posts.*', 'category.category_name as category_name')
-                ->join('category','posts.cat_id','=','category.id')
-                ->where('posts.post_type', 1)
-                ->where('posts.cat_id', 7)
-                ->orderBy('posts.id','desc')
-                ->take(5)
-                ->get();
+            ->select('posts.*', 'category.category_name as category_name')
+            ->join('category','posts.cat_id','=','category.id')
+            ->where('posts.post_type', 1)
+            ->where('posts.cat_id', 7)
+            ->orderBy('posts.id','desc')
+            ->take(5)
+            ->get();
 
         $lifestyle_2 = DB::table('posts')
-                ->select('posts.*', 'category.category_name as category_name')
-                ->join('category','posts.cat_id','=','category.id')
-                ->where('posts.post_type', 1)
-                ->where('posts.cat_id', 7)
-                ->orderBy('posts.id','asc')
-                ->take(5)
-                ->get();
+            ->select('posts.*', 'category.category_name as category_name')
+            ->join('category','posts.cat_id','=','category.id')
+            ->where('posts.post_type', 1)
+            ->where('posts.cat_id', 7)
+            ->orderBy('posts.id','asc')
+            ->take(5)
+            ->get();
 
         $lifestyle_cat_name = DB::table('category')->where('id',7)->first();
         $lifestyle_cat_name = $lifestyle_cat_name->category_name;
@@ -172,12 +172,20 @@ class MainController extends Controller
             ->where('posts.post_type', 1)
             ->orderBy('posts.id','asc')
             ->take(5)
+            ->get();  
+
+              // Youtube Post
+        $youtube_post = DB::table('video')
+            ->where('type', 1)
+            ->where('status', 1)
+            ->orderBy('id','desc')
+            ->take(4)
             ->get();   
 
         return view('web.index', compact('slider_post', 'fourth_post', 'assam_post','assam_cat_name',
         'guwahati_post', 'guwahati_cat_name', 'technology_post', 'technology_cat_name', 'business_posts_1', 
         'business_posts_2', 'health', 'health_cat_name', 'gadget', 'gadget_cat_name', 'travel', 'travel_cat_name', 
-        'lifestyle_1', 'lifestyle_2', 'lifestyle_cat_name', 'popular_post'));
+        'lifestyle_1', 'lifestyle_2', 'lifestyle_cat_name', 'popular_post', 'youtube_post'));
     }
 
     public function showPost($slug, $id){
