@@ -11,19 +11,20 @@ use App\Http\Resources\Category as CategoryResource;
 use Illuminate\Support\Str;
 class MainController extends Controller
 {
-    public function slidePost()
+    public function frontPagePost()
     {
 
         $slide_post = DB::table('posts')
             ->select('posts.*', 'category.category_name as category_name')
             ->join('category','posts.cat_id','=','category.id')
-            ->where('hp_section1', 1)
+            ->where('posts.hp_section1', 1)
+            ->where('posts.post_type', 1)
             ->get();
-
         $four_post = DB::table('posts')
             ->select('posts.*', 'category.category_name as category_name')
             ->join('category','posts.cat_id','=','category.id')
-            ->where('hp_section1', 2)
+            ->where('posts.hp_section1', 2)
+            ->where('posts.post_type', 1)
             ->take(4)
             ->get();
 
@@ -34,6 +35,8 @@ class MainController extends Controller
             $slider_post = DB::table('posts')
             ->select('posts.*', 'category.category_name as category_name')
             ->join('category','posts.cat_id','=','category.id')
+            ->where('posts.post_type', 1)
+             ->where('posts.hp_section1', '!=', 2)
             ->take(5)
             ->get();
         }
@@ -45,78 +48,192 @@ class MainController extends Controller
             $fourth_post = DB::table('posts')
             ->select('posts.*', 'category.category_name as category_name')
             ->join('category','posts.cat_id','=','category.id')
+            ->where('posts.post_type', 1)
+            ->where('posts.hp_section1', '!=', 1)
             ->take(4)
             ->get();
         }
 
-        $catid = NULL;
-        $posts = [];
-        $categories = DB::table('category')->whereIn('id', [1, 2, 5])->get();
-        foreach ($categories as $category) {
-            $catid = $category->id;
-            $posts[] = Post::where('cat_id', $catid)
-                ->select('posts.*','category.category_name as category_name')
-                ->join('category','posts.cat_id','category.id')
-                ->take(5)
-                ->orderBy('id', 'desc')
-                ->get();
-        }
-        // return $sec_posts;
-        // $categories = Category::whereIn('id', [1, 2, 5])->get();
-        // foreach($categories as $category){
-        //     // $cat_id = $category->id;
-        //     // $sec_posts[] = Category::with('posts')->find($cat_id);  
-        //     $posts = $category->posts()->take(5)->orderBy('id', 'desc')->get();  
-        // }
-        // return $posts;
+        $assam_post = DB::table('posts')
+        ->select('posts.*', 'category.category_name as category_name')
+        ->join('category','posts.cat_id','=','category.id')
+        ->where('posts.post_type', 1)
+        ->where('posts.cat_id', 1)
+        ->orderBy('posts.id','desc')
+        ->take(5)
+        ->get();
 
-        //Business Section
-        $business_posts = Post::where('cat_id', 6)
-            ->select('posts.*','category.category_name as category_name')
-            ->join('category','posts.cat_id','category.id')
-            ->take(8)
-            ->orderBy('id', 'desc')
+        $assam_cat_name = DB::table('category')->where('id',1)->first();
+        $assam_cat_name = $assam_cat_name->category_name;
+
+        $guwahati_post = DB::table('posts')
+            ->select('posts.*', 'category.category_name as category_name')
+            ->join('category','posts.cat_id','=','category.id')
+            ->where('posts.post_type', 1)
+            ->where('posts.cat_id', 2)
+            ->orderBy('posts.id','desc')
+            ->take(5)
             ->get();
 
-        // $business_posts = Category::with('posts')->take(4)->get();
-        // return $business_posts;
-        //Lifestyle Section
-        $lifestyle_posts = Post::where('cat_id', 7)
+        $guwahati_cat_name = DB::table('category')->where('id',2)->first();
+        $guwahati_cat_name = $guwahati_cat_name->category_name;
+
+        $technology_post = DB::table('posts')
+            ->select('posts.*', 'category.category_name as category_name')
+            ->join('category','posts.cat_id','=','category.id')
+            ->where('posts.post_type', 1)
+            ->where('posts.cat_id', 5)
+            ->orderBy('posts.id','desc')
+            ->take(5)
+            ->get();
+
+        $technology_cat_name = DB::table('category')->where('id',5)->first();
+        $technology_cat_name = $technology_cat_name->category_name;
+
+        //Business Section
+        $business_posts_1 = DB::table('posts')
+            ->select('posts.*', 'category.category_name as category_name')
+            ->join('category','posts.cat_id','=','category.id')
+            ->where('posts.post_type', 1)
+            ->where('posts.cat_id', 6)
+            ->orderBy('posts.id','desc')
+            ->take(4)
+            ->get();
+
+        $business_posts_2 = DB::table('posts')
+            ->select('posts.*', 'category.category_name as category_name')
+            ->join('category','posts.cat_id','=','category.id')
+            ->where('posts.post_type', 1)
+            ->where('posts.cat_id', 6)
+            ->orderBy('posts.id','asc')
+            ->take(4)
+            ->get();
+
+        $health = DB::table('posts')
                 ->select('posts.*', 'category.category_name as category_name')
-                ->join('category','posts.cat_id','category.id')
-                ->take(2)
-                ->orderBy('id', 'desc')
+                ->join('category','posts.cat_id','=','category.id')
+                ->where('posts.post_type', 1)
+                ->where('posts.cat_id', 8)
+                ->orderBy('posts.id','asc')
+                ->take(4)
                 ->get();
+
+        $health_cat_name = DB::table('category')->where('id',8)->first();
+        $health_cat_name = $health_cat_name->category_name;
+
+        $gadget = DB::table('posts')
+                ->select('posts.*', 'category.category_name as category_name')
+                ->join('category','posts.cat_id','=','category.id')
+                ->where('posts.post_type', 1)
+                ->where('posts.cat_id', 9)
+                ->orderBy('posts.id','asc')
+                ->take(4)
+                ->get();
+        $gadget_cat_name = DB::table('category')->where('id',9)->first();
+        $gadget_cat_name = $gadget_cat_name->category_name;
        
-        // return $lifestyle_posts;
-                //Popular Post
-        // $popular_post = Post::get()->sortByDesc('view_count');
-        // return $lifestyle_posts;
+        $travel = DB::table('posts')
+                ->select('posts.*', 'category.category_name as category_name')
+                ->join('category','posts.cat_id','=','category.id')
+                ->where('posts.post_type', 1)
+                ->where('posts.cat_id', 10)
+                ->orderBy('posts.id','asc')
+                ->take(4)
+                ->get();
+        $travel_cat_name = DB::table('category')->where('id',10)->first();
+        $travel_cat_name = $travel_cat_name->category_name;
 
-        $catid = NULL;
-        $cats = DB::table('category')->whereIn('id', [8, 9, 10])->get();
-        foreach ($cats as $category) {
-            $catid = $category->id;
-            $gadget[] = Category::with('posts')->where('id', $catid)->take(3)->get();
-        }
-        // return $gadget;
-        return view('web.index', compact('slider_post', 'fourth_post', 'posts', 'business_posts', 'lifestyle_posts', 'gadget'));
+        $lifestyle_1 = DB::table('posts')
+                ->select('posts.*', 'category.category_name as category_name')
+                ->join('category','posts.cat_id','=','category.id')
+                ->where('posts.post_type', 1)
+                ->where('posts.cat_id', 7)
+                ->orderBy('posts.id','desc')
+                ->take(5)
+                ->get();
 
+        $lifestyle_2 = DB::table('posts')
+                ->select('posts.*', 'category.category_name as category_name')
+                ->join('category','posts.cat_id','=','category.id')
+                ->where('posts.post_type', 1)
+                ->where('posts.cat_id', 7)
+                ->orderBy('posts.id','asc')
+                ->take(5)
+                ->get();
+
+        $lifestyle_cat_name = DB::table('category')->where('id',7)->first();
+        $lifestyle_cat_name = $lifestyle_cat_name->category_name;
+
+        //Popular Post
+        $popular_post = DB::table('posts')
+            ->select('posts.*', 'category.category_name as category_name')
+            ->join('category','posts.cat_id','=','category.id')
+            ->where('popular_post', 1)
+            ->where('posts.post_type', 1)
+            ->orderBy('posts.id','asc')
+            ->take(5)
+            ->get();   
+
+        return view('web.index', compact('slider_post', 'fourth_post', 'assam_post','assam_cat_name',
+        'guwahati_post', 'guwahati_cat_name', 'technology_post', 'technology_cat_name', 'business_posts_1', 
+        'business_posts_2', 'health', 'health_cat_name', 'gadget', 'gadget_cat_name', 'travel', 'travel_cat_name', 
+        'lifestyle_1', 'lifestyle_2', 'lifestyle_cat_name', 'popular_post'));
     }
 
     public function showPost($slug, $id){
-    $single_post = DB::table('posts')
+        $single_post = DB::table('posts')
         ->select('posts.*', 'category.category_name as category_name')
         ->join('category','posts.cat_id','=','category.id')
         ->where('posts.id', $id)
         ->first();
 
         //Related Post
-        $posts = Post::where('id',$id)->first();
-        $related_post = Category::with('posts')
-            ->where('id', $posts->cat_id)
+        $posts = DB::table('posts')->where('id',$id)->first();
+        $related_post = DB::table('posts')->where('cat_id', $posts->cat_id)->where('post_type', 1)
+        ->get();
+
+         //Popular Post
+        $popular_post = DB::table('posts')
+            ->select('posts.*', 'category.category_name as category_name')
+            ->join('category','posts.cat_id','=','category.id')
+            ->where('popular_post', 1)
+            ->where('posts.post_type', 1)
+            ->orderBy('posts.id','asc')
+            ->take(5)
+            ->get();   
+
+        // dd($related_post);
+        return view('web.show', compact('single_post', 'related_post', 'popular_post'));
+    }
+
+    //Header Navigation
+    public function headerNav($id){
+        try {
+            $id = decrypt($id);
+        }catch(DecryptException $e) {
+            return redirect()->back();
+        }
+
+        $news = DB::table('posts')->where('cat_id', $id)->where('post_type', 1)->get();
+
+        $cat_name = DB::table('category')->where('id',$id)->first();
+        $cat_name = $cat_name->category_name;
+        return view('web.news.news-list', compact('news', 'cat_name'));
+    }
+
+    public function search(Request $request){
+        $this->validate($request, [
+            'query' => 'required'
+        ]);
+
+        $query = $request->input('query');
+
+        $search_result = DB::table('posts')
+            ->where('title', 'LIKE', '%'.$query.'%')
+            ->where('post_type', 1)
+            ->orWhere('body', 'LIKE', '%'.$query.'%')
             ->get();
-        return view('web.show', compact('single_post', 'related_post'));
+        return view('web.search.search-list', compact('search_result'));
     }
 
 }

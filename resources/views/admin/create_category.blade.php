@@ -50,7 +50,7 @@
                                 <div class="form-group">    	            	
                                     {{ Form::submit('Add', array('class'=>'btn btn-success pull-right')) }}  
                                 </div>
-                                {{ Form::close() }}
+                        {{ Form::close() }}
                         </div>
                     </div>
                 </div>

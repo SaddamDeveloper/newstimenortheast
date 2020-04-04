@@ -50,12 +50,12 @@
 		        <div class="row">
 		            <div class="col-md-8">
 		               	<div class="ts-date">
-		                  	<i class="fa fa-calendar-check-o"></i>May 29, 2017
+		                  	<i class="fa fa-calendar-check-o"></i>{{ date('M d, Y', strtotime(Carbon\Carbon::today()))}}
 		               	</div>
 		               <ul class="unstyled top-nav">
 		                  	<li><b>Showing in :</b></li>
-		                  	<li><a href="#" class="showing">English</a></li>
-		                  	<li><a href="as">Assamese</a></li>
+		                  	<li><a href="{{route('web.index')}}">English</a></li>
+		                  	<li><a href="{{route('assamese.index')}}" class="showing">অসমীয়া</a></li>
 		               </ul>
 		            </div><!--/ Top bar left end -->
 
@@ -77,7 +77,7 @@
 				<div class="row">
 					<div class="col-lg-1 col-sm-2 col-xs-2">
 						<div class="logo">
-							<a href="{{URL::to('/')}}">
+							<a href="{{route('assamese.index')}}">
 								<img src="{{asset('web/images/logos/logo.png')}}" alt="">
 							 </a>
 						</div>
@@ -105,47 +105,47 @@
 							<div id="navbarSupportedContent" class="collapse navbar-collapse navbar-responsive-collapse">
 								<ul class="nav navbar-nav">
 									<li>
-										{{-- <a href="{{route('web.index')}}">Home </a> --}}
+										<a href="{{route('assamese.index')}}">হোম </a>
 									</li>
 
 									<li>
-										<a href="{{route('web.about.about')}}">About</a>
+										<a href="{{route('web.about.about')}}">বিষয়ে</a>
 									</li>
 
 									<li class="dropdown">
-										<a class="dropdown-toggle" data-toggle="dropdown">News <i class="fa fa-angle-down"></i></a>
+										<a class="dropdown-toggle" data-toggle="dropdown">খবৰ <i class="fa fa-angle-down"></i></a>
 										<ul class="dropdown-menu" role="menu">
 											<li>
-												<a href="{{route('web.news.news-list')}}">India</a>
+												<a href="{{route('ass.news', ['id'=> encrypt(12)])}}">ভাৰতবৰ্ষ</a>
 											</li>
 											<li>
-												<a href="{{route('web.news.news-list')}}">World</a>
+												<a href="{{route('ass.news', ['id'=> encrypt(13)])}}">বিশ্ব</a>
 											</li>
 										</ul><!-- End dropdown -->
 									</li><!-- Features menu end -->
 
 									<li>
-										<a href="{{route('web.news.news-list')}}">Guwahati</a>
+										<a href="{{route('ass.news', ['id'=> encrypt(2)])}}">গুৱাহাটী</a>
 									</li>
 
 									<li>
-										<a href="{{route('web.news.news-list')}}">Assam</a>
+										<a href="{{route('ass.news', ['id'=> encrypt(1)])}}">অসম</a>
 									</li>
 
 									<li>
-										<a href="{{route('web.news.news-list')}}">Northeast</a>
+										<a href="{{route('ass.news', ['id'=> encrypt(14)])}}">উত্তৰপূব</a>
 									</li>
 
 									<li>
-										<a href="{{route('web.news.news-list')}}">Entertainment</a>
+										<a href="{{route('ass.news', ['id'=> encrypt(15)])}}">মনোৰঞ্জণ</a>
 									</li>
 
 									<li>
-										<a href="{{route('web.news.news-list')}}">Sports</a>
+										<a href="{{route('ass.news', ['id'=> encrypt(16)])}}">ক্ৰীড়া</a>
 									</li>
 
 									<li>
-										<a target="_blank" href="https://www.youtube.com/">Video</a>
+										<a target="_blank" href="https://www.youtube.com/">ভিডিও</a>
 									</li><!-- Video menu end -->
 
 									<li>
@@ -156,16 +156,16 @@
 
 						</div><!-- Site Navbar inner end -->
 					</nav><!--/ Navigation end -->
-
+					
+					{{ Form::open(['method' => 'post','route'=>'ass.search']) }}
 					<div class="nav-search">
 						<span id="search"><i class="fa fa-search"></i></span>
 					</div><!-- Search end -->
-					
 					<div class="search-block" style="display: none;">
-					
-							<input type="text" class="form-control" placeholder="Type what you want and enter">
-							<span class="search-close">&times;</span>
-
+						<input type="text" class="form-control" name="query" placeholder="Type what you want and enter">
+						<span class="search-close">&times;</span>
+					</div>
+					{{ Form::close() }}
 				</div><!--/ Row end -->
 			</div><!--/ Container end -->
 		</div><!-- Menu wrapper end -->

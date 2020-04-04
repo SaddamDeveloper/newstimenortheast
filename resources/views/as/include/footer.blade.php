@@ -18,31 +18,31 @@
                     <h3 class="widget-title">Hot Categories</h3>
                     <ul>
                         <li>
-                            <a href="#"><span class="catTitle">ABOUT</span></a>
+                            <a href="#"><span class="catTitle">বিষয়ে</span></a>
                         </li>
                         <li>
-                            <a href="{{route('web.news.news-list')}}"><span class="catTitle">INDIA</span></a>
+                            <a href="{{route('ass.news', ['id'=> encrypt(12)])}}"><span class="catTitle">ভাৰতবৰ্ষ</span></a>
                         </li>
                         <li>
-                            <a href="{{route('web.news.news-list')}}"><span class="catTitle">WORLD</span></a>
+                            <a href="{{route('ass.news', ['id'=> encrypt(13)])}}"><span class="catTitle">বিশ্ব</span></a>
                         </li>
                         <li>
-                            <a href="{{route('web.news.news-list')}}"><span class="catTitle">GUWAHATI</span></a>
+                            <a href="{{route('ass.news', ['id'=> encrypt(2)])}}"><span class="catTitle">গুৱাহাটী</span></a>
                         </li>
                         <li>
-                            <a href="{{route('web.news.news-list')}}"><span class="catTitle">ASSAM</span></a>
+                            <a href="{{route('ass.news', ['id'=> encrypt(1)])}}"><span class="catTitle">অসম</span></a>
                         </li>
                         <li>
-                            <a href="{{route('web.news.news-list')}}"><span class="catTitle">NORTHEAST</span></a>
+                            <a href="{{route('ass.news', ['id'=> encrypt(14)])}}"><span class="catTitle">উত্তৰপূব</span></a>
                         </li>
                         <li>
-                            <a href="{{route('web.news.news-list')}}"><span class="catTitle">SPORTS</span></a>
+                            <a href="{{route('ass.news', ['id'=> encrypt(16)])}}"><span class="catTitle">ক্ৰীড়া</span></a>
                         </li>
                         <li>
-                            <a href="{{route('web.news.news-list')}}"><span class="catTitle">ENTERTAINMENT</span></a>
+                            <a href="{{route('ass.news', ['id'=> encrypt(15)])}}"><span class="catTitle">মনোৰঞ্জণ</span></a>
                         </li>
                         <li>
-                            <a href="#"><span class="catTitle">VIDEO</span></a>
+                            <a href="#"><span class="catTitle">ভিডিও</span></a>
                         </li>
                         <li>
                             <a target="_blank" href="{{route('web.livetv.livetv')}}"><span class="catTitle">LIVE TV</span></a>

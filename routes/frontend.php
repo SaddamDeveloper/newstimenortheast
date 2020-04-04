@@ -16,7 +16,7 @@ Route::get('/Single', function () {
 
 //========= Search =========//
 
-Route::get('/Search/', function () {
+Route::get('/search', function () {
     return view('web.search.search-list');
 })->name('web.search.search-list');
 
@@ -40,18 +40,22 @@ Route::get('/contact', function () {
 
 
 Route::group(['namespace' => 'Web'], function(){
-	Route::get('/', 'MainController@slidePost')->name('web.index');
+	Route::get('/', 'MainController@frontPagePost')->name('web.index');
 
 	Route::group(['prefix' => 'english'], function(){
 		Route::get('/posts/{slug}/{id}', 'MainController@showPost')->name('web.viewPost');
+		Route::get('/posts/{id}', 'MainController@headerNav')->name('web.news');
+		Route::post('/search', 'MainController@search')->name('web.search');
 	});
 });
 
 
 Route::group(['namespace' => 'Assamese'], function(){
-	Route::get('/assamese', 'MainController@slidePost')->name('assamese.index');
-
+	Route::get('/assamese', 'MainController@frontPagePost')->name('assamese.index');
+	
 	Route::group(['prefix' => 'assamese'], function(){
 		Route::get('/posts/{slug}/{id}', 'MainController@showPost')->name('assamese.viewPost');
+		Route::get('/posts/{id}', 'MainController@headerNav')->name('ass.news');
+		Route::post('/search', 'MainController@search')->name('ass.search');
 	});
 });

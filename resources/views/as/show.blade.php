@@ -1,5 +1,5 @@
 
-@extends('web.template.web_master')
+@extends('as.template.web_master')
 
 @section('content')
 
@@ -11,7 +11,7 @@
                     <div class="single-post">
                         
                         <div class="post-title-area">
-                            <a class="post-cat" href="#">{{$single_post->category_name}}</a>
+                            <a class="post-cat" href="{{route('ass.news', ['id'=> encrypt($single_post->cat_id)])}}">{{$single_post->category_name}}</a>
                             <h2 class="post-title">
                                 {{$single_post->title}}
                             </h2>
@@ -64,26 +64,29 @@
 
                         <div id="latest-news-slide" class="owl-carousel owl-theme latest-news-slide">
                             @if(isset($related_post) && !empty($related_post))
-                            @foreach($related_post as $rp)
-                            @foreach($rp->posts as $re_post)
+                            @foreach($related_post as $post)
+                            @php
+                                // dd($re_post->slug);
+                            @endphp
                             <div class="item">
                                 <div class="post-block-style clearfix">
                                     <div class="post-thumb">
-                                        <a href="{{URL::to('/')}}/posts/{{Str::of($re_post->title)->slug('-')}}/{{$re_post->id}}"><img class="img-fluid" src="{{asset('post/thumb/'.$re_post->image)}}" alt="" /></a>
+                                        <a href="{{route('assamese.viewPost',['slug'=>$post->slug, 'id' => $post->id])}}">
+                                            <img class="img-fluid" src="{{asset('post/thumb/'.$post->image)}}" alt="" />
+                                        </a>
                                     </div>
-                                    <a class="post-cat" href="#">{{$rp->category_name}}</a>
+                                    {{-- <a class="post-cat" href="#">{{$re_post->category_name}}</a> --}}
                                     <div class="post-content">
                                         <h2 class="post-title title-medium">
-                                            <a href="{{URL::to('/')}}/posts/{{Str::of($re_post->title)->slug('-')}}/{{$re_post->id}}">{!! Str::words($re_post->title, 6, ' ...') !!}</a>
+                                            <a href="{{route('assamese.viewPost',['slug'=>$post->slug,'id'=>$post->id])}}">{!! Str::words($post->title, 6, ' ...') !!}</a>
                                         </h2>
                                         <div class="post-meta">
-                                            <span class="post-author"><a href="#">{{$re_post->author}}</a></span>
-                                            <span class="post-date">{{ date('M d, Y', strtotime($re_post->created_at))}}</span>
+                                            <span class="post-author"><a href="#">{{$post->author}}</a></span>
+                                            <span class="post-date">{{ date('M d, Y', strtotime($post->created_at))}}</span>
                                         </div>
                                     </div><!-- Post content end -->
                                 </div><!-- Post Block style end -->
                             </div><!-- Item 1 end -->
-                            @endforeach
                             @endforeach
                             @endif
                         </div><!-- Carousel end -->
@@ -113,109 +116,52 @@
                         <div class="widget color-default">
                             <h3 class="block-title"><span>Popular News</span></h3>
 
-                            <div class="post-overaly-style clearfix">
-                                <div class="post-thumb">
-                                    <a href="#">
-                                        <img class="img-fluid" src="{{asset('web/images/news/lifestyle/health4.jpg')}}" alt="" />
-                                    </a>
-                                </div>
-                                
-                                <div class="post-content">
-                                    <a class="post-cat" href="#">Health</a>
-                                    <h2 class="post-title title-small">
-                                        <a href="#">Smart packs parking sensor tech and beeps when col…</a>
-                                    </h2>
-                                    <div class="post-meta">
-                                        <span class="post-date">Feb 06, 2017</span>
+                            @if(isset($popular_post) && !empty($popular_post))
+                            @foreach($popular_post as $key => $post)
+                            @if($key == 0)
+                                <div class="post-overaly-style clearfix">
+                                    <div class="post-thumb">
+                                        <a href="#">
+                                            <img class="img-fluid" src="{{asset('post/thumb/'.$post->image)}}" alt="" />
+                                        </a>
                                     </div>
-                                </div><!-- Post content end -->
-                            </div><!-- Post Overaly Article end -->
+                                    
+                                    <div class="post-content">
+                                         <h2 class="post-title">
+                                             <a href="{{route('web.viewPost',['slug'=>urlencode($post->slug),'id'=>$post->id])}}">{!! Str::words($post->title, 10, ' ...') !!}</a>
+                                         </h2>
+                                         <div class="post-meta">
+                                             <span class="post-date">{{ date('M d, Y', strtotime($post->created_at))}}</span>
+                                         </div>
+                                     </div><!-- Post content end -->
+                                </div><!-- Post Overaly Article end -->
+                            @else
+                                <div class="list-post-block">
+                                    <ul class="list-post">
+                                        <li class="clearfix">
+                                            <div class="post-block-style post-float clearfix">
+                                                <div class="post-thumb">
+                                                    <a href="{{route('web.viewPost',['slug'=>urlencode($post->slug),'id'=>$post->id])}}">
+                                                        <img class="img-fluid" src="{{asset('post/thumb/'.$post->image)}}" alt="" />
+                                                    </a>
+                                                </div><!-- Post thumb end -->
 
-
-                            <div class="list-post-block">
-                                <ul class="list-post">
-                                    <li class="clearfix">
-                                        <div class="post-block-style post-float clearfix">
-                                            <div class="post-thumb">
-                                                <a href="#">
-                                                    <img class="img-fluid" src="{{asset('web/images/news/tech/gadget3.jpg')}}" alt="" />
-                                                </a>
-                                                <a class="post-cat" href="#">Gadgets</a>
-                                            </div><!-- Post thumb end -->
-
-                                            <div class="post-content">
-                                                <h2 class="post-title title-small">
-                                                    <a href="#">Panasonic's new Sumix CH7 an ultra portable filmmaker's drea…</a>
-                                                </h2>
-                                                <div class="post-meta">
-                                                    <span class="post-date">Mar 13, 2017</span>
-                                                </div>
-                                            </div><!-- Post content end -->
-                                        </div><!-- Post block style end -->
-                                    </li><!-- Li 1 end -->
-
-                                    <li class="clearfix">
-                                        <div class="post-block-style post-float clearfix">
-                                            <div class="post-thumb">
-                                                <a href="#">
-                                                    <img class="img-fluid" src="{{asset('web/images/news/lifestyle/travel5.jpg')}}" alt="" />
-                                                </a>
-                                                <a class="post-cat" href="#">Travel</a>
-                                            </div><!-- Post thumb end -->
-
-                                            <div class="post-content">
-                                                <h2 class="post-title title-small">
-                                                    <a href="#">Hynopedia helps female travelers find health care...</a>
-                                                </h2>
-                                                <div class="post-meta">
-                                                    <span class="post-date">Jan 11, 2017</span>
-                                                </div>
-                                            </div><!-- Post content end -->
-                                        </div><!-- Post block style end -->
-                                    </li><!-- Li 2 end -->
-
-                                    <li class="clearfix">
-                                        <div class="post-block-style post-float clearfix">
-                                            <div class="post-thumb">
-                                                <a href="#">
-                                                    <img class="img-fluid" src="{{asset('web/images/news/tech/robot5.jpg')}}" alt="" />
-                                                </a>
-                                                <a class="post-cat" href="#">Robotics</a>
-                                            </div><!-- Post thumb end -->
-
-                                            <div class="post-content">
-                                                <h2 class="post-title title-small">
-                                                    <a href="#">Robots in hospitals can be quite handy to navigate around...</a>
-                                                </h2>
-                                                <div class="post-meta">
-                                                    <span class="post-date">Feb 19, 2017</span>
-                                                </div>
-                                            </div><!-- Post content end -->
-                                        </div><!-- Post block style end -->
-                                    </li><!-- Li 3 end -->
-
-                                    <li class="clearfix">
-                                        <div class="post-block-style post-float clearfix">
-                                            <div class="post-thumb">
-                                                <a href="#">
-                                                    <img class="img-fluid" src="{{asset('web/images/news/lifestyle/food1.jpg')}}" alt="" />
-                                                </a>
-                                                <a class="post-cat" href="#">Food</a>
-                                            </div><!-- Post thumb end -->
-
-                                            <div class="post-content">
-                                                <h2 class="post-title title-small">
-                                                    <a href="#">Tacos ditched the naked chicken chalupa, so here's how…</a>
-                                                </h2>
-                                                <div class="post-meta">
-                                                    <span class="post-date">Feb 27, 2017</span>
-                                                </div>
-                                            </div><!-- Post content end -->
-                                        </div><!-- Post block style end -->
-                                    </li><!-- Li 4 end -->
-
-                                </ul><!-- List post end -->
-                            </div><!-- List post block end -->
+                                                <div class="post-content">
+                                                     <h2 class="post-title title-small">
+                                                         <a href="{{route('web.viewPost',['slug'=>urlencode($post->slug),'id'=>$post->id])}}">{!! Str::words($post->title, 10, ' ...') !!}</a>
+                                                     </h2>
+                                                     <div class="post-meta">
+                                                         <span class="post-date">{{ date('M d, Y', strtotime($post->created_at))}}</span>
+                                                     </div>
+                                                 </div><!-- Post content end -->
+                                            </div><!-- Post block style end -->
+                                        </li><!-- Li 1 end -->
+                                    </ul><!-- List post end -->
+                                </div><!-- List post block end -->
+                            @endif
+                            <div class="gap-40"></div>
+                            @endforeach
+                            @endif
 
                         </div><!-- Popular news widget end -->                          
 
