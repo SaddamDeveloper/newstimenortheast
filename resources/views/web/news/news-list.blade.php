@@ -39,7 +39,6 @@
                             </div><!-- 1st row end -->
                         </div><!-- 1st Post list end -->
                         @endforeach
-                         {!! $posts->render() !!}
                         @endif
                     </div><!-- Block Technology end -->
 

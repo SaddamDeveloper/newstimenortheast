@@ -191,8 +191,19 @@ class MainController extends Controller
         $posts = DB::table('posts')->where('id',$id)->first();
         $related_post = DB::table('posts')->where('cat_id', $posts->cat_id)->where('post_type', 1)
         ->get();
+
+         //Popular Post
+        $popular_post = DB::table('posts')
+            ->select('posts.*', 'category.category_name as category_name')
+            ->join('category','posts.cat_id','=','category.id')
+            ->where('popular_post', 1)
+            ->where('posts.post_type', 1)
+            ->orderBy('posts.id','asc')
+            ->take(5)
+            ->get();   
+
         // dd($related_post);
-        return view('web.show', compact('single_post', 'related_post'));
+        return view('web.show', compact('single_post', 'related_post', 'popular_post'));
     }
 
     //Header Navigation
