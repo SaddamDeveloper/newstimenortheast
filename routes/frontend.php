@@ -56,6 +56,6 @@ Route::group(['namespace' => 'Assamese'], function(){
 	Route::group(['prefix' => 'assamese'], function(){
 		Route::get('/posts/{slug}/{id}', 'MainController@showPost')->name('assamese.viewPost');
 		Route::get('/posts/{id}', 'MainController@headerNav')->name('ass.news');
-		Route::post('/search', 'MainController@search')->name('ass.search');
+		Route::get('/search/', 'MainController@search')->name('ass.search');
 	});
 });

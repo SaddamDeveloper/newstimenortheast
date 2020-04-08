@@ -157,7 +157,7 @@
 						</div><!-- Site Navbar inner end -->
 					</nav><!--/ Navigation end -->
 					
-					{{ Form::open(['method' => 'post','route'=>'ass.search']) }}
+					{{ Form::open(['method' => 'get','route'=>'ass.search']) }}
 					<div class="nav-search">
 						<span id="search"><i class="fa fa-search"></i></span>
 					</div><!-- Search end -->

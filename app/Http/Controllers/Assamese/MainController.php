@@ -252,12 +252,14 @@ class MainController extends Controller
         ]);
 
         $query = $request->input('query');
-
+        
         $search_result = DB::table('posts')
             ->where('title', 'LIKE', '%'.$query.'%')
             ->where('post_type', 2)
             ->orWhere('body', 'LIKE', '%'.$query.'%')
-            ->get();
-        return view('as.search.search-list', compact('search_result'));
+            ->paginate(1);
+
+            return view('as.search.search-list', compact('search_result'));
+       
     }
 }

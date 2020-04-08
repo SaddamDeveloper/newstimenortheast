@@ -41,12 +41,11 @@
                         @endforeach
                         @endif
                     </div><!-- Block Technology end -->
-
                     <div class="paging">
-                    <ul class="pagination">
+                    <ul class="pagination" id="pagination">
                       <li class="active"><a href="#"><div class="loader"></div>Load More</a></li>
                     </ul>
-                </div>
+                    </div>
 
 
                 </div><!-- Content Col end -->
@@ -86,4 +85,14 @@
         </div><!-- Container end -->
     </section><!-- First block end -->
 
+@endsection
+
+@section('script')
+    <script>
+       $(function(){
+           $("#pagination").click(function(){
+               
+           })
+       })
+    </script>
 @endsection
