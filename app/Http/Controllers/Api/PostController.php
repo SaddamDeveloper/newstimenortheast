@@ -41,18 +41,27 @@ class PostController extends Controller
 
     public function postList($id)
     {   
-        $posts = DB::table('posts')->where('id', $id)->get();
-
+        $posts = DB::table('posts')->where('id', $id)->first();
+        $share_url = null;
+        if ($posts) {
+            if ($posts->post_type == '1') {
+                $share_url = route('web.viewPost',['slug'=>$posts->slug,'id'=>$posts->id]);
+            } else {
+                $share_url = route('assamese.viewPost',['slug'=>$posts->slug,'id'=>$posts->id]);
+            }
+        }
+        
         $response = [
             'status' => true,
             'message' => 'Post Details',
             'data' => $posts,
+            'shareURL' => $share_url
         ];
         return response()->json($response, 200);
     }
 
-    public function videoList($id){
-        $video = DB::table('video')->where('id', $id)->get();
+    public function videoList($type){
+        $video = DB::table('video')->where('type',$type)->orderBy('id','desc')->limit(10)->get();
 
         $response = [
             'status' => true,
